@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { CarsComponent } from './components/cars/cars.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { CarService } from './service/car.service';
 
 const appRoutes: Routes = [
-  { path: '', component: CarsComponent },
   { path: 'cars', component: CarsComponent }
   
 ];
@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [CarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
