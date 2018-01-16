@@ -1,0 +1,35 @@
+<form #carForm="ngForm" (ngSubmit)="submitContact(newCar); contactForm.reset()">
+  <div class="form-group">
+    <label>Mark</label>
+    <input #Mark="ngModel" [(ngModel)]="newCar.Mark" name='Mark' type="text" class="form-control" required minlength="2">
+  </div>
+
+  <div class="form-group">
+    <label>Model</label>
+    <input #Model="ngModel" [(ngModel)]="newCar.Model" name='Model' type="text" class="form-control" required minlength="2">
+  </div>
+
+  <div class="form-group">
+    <label>year</label>
+    <input #year="ngModel" [(ngModel)]="newCar.email" name='year' type="text" class="form-control">
+
+  </div>
+  <div class="form-group">
+    <label>maxSpeed</label>
+    <input #maxSpeed="ngModel" [(ngModel)]="newCar.confirmEmail" name='maxSpeed' type="text" class="form-control">
+   </div>
+
+   <div class="form-group">
+    <label>numberOfDoors</label>
+    <input #numberOfDoors="ngModel" [(ngModel)]="newCar.confirmEmail" name='numberOfDoors' type="text" class="form-control">
+   </div>
+
+
+  <button type="button" class="btn"
+    (click)="carForm.reset()"
+    [disabled]="carForm.form.pristine"
+  >Reset</button>
+  <button type="submit" class="btn btn-primary"
+    [disabled]="!carForm.form.valid"
+  >{{  }}</button>
+</form>
