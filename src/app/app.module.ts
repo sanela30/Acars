@@ -8,6 +8,7 @@ import { CarsComponent } from './components/cars/cars.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { CarService } from './service/car.service';
 import { CarFormComponent } from './components/car-form/car-form.component';
+import { FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'cars', component: CarsComponent },
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [CarService],
   bootstrap: [AppComponent]

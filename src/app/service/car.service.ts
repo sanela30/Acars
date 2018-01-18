@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Car} from '../components/car';
 
+
 @Injectable()
 export class CarService {
+
+
+ private idCount = 0;
 
   private cars:Car[] =[
     {
@@ -36,11 +40,16 @@ export class CarService {
     numberOfDoors:5 
   }
   ]
-    constructor() { }
+  
     public getCars()
     {
       return this.cars;
     }
+
+    public addCar(car) {
+      this.cars.push(car);
+      this.idCount = this.idCount++;
+  }
 
   }
 
