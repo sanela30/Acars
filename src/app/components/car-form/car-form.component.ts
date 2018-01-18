@@ -30,7 +30,14 @@ export class CarFormComponent implements OnInit {
     this._carService.addCar(this.car)
     this.router.navigate(['/cars']);
 }
-
+public preview(){
+  alert(`
+  Mark: ${this.car.mark}, 
+  Model: ${this.car.model},
+  Year: ${this.car.year},
+  Engine: ${this.car.engine},
+  `);
+}
 
   ngOnInit() {
   }
