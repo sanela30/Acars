@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../car';
 import { CarService } from '../../service/car.service';
+import { Car } from '../car';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 export class CarFormComponent implements OnInit {
 
   
-  public car:Car;
+  private car:Car;
   public years;
   
 
 
-  constructor(private _carService: CarService,private router: Router) { 
+  constructor(private __carService: CarService,private router: Router) { 
 
     this.car = new Car();
    
@@ -25,18 +25,20 @@ export class CarFormComponent implements OnInit {
       2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018];
   }
 
-  submitCar(){
+ public submitCar(){
     
-    this._carService.addCar(this.car)
+    this.__carService.addCar(this.car)
     this.router.navigate(['/cars']);
 }
-public preview(){
-  alert(`
-  Mark: ${this.car.mark}, 
+
+  public preview(){
+  alert(`Mark: ${this.car.mark},
   Model: ${this.car.model},
   Year: ${this.car.year},
+  Max Speed: ${this.car.maxSpeed},
+  Automatic: ${this.car.isAutomatic},
   Engine: ${this.car.engine},
-  `);
+  Number Of Doors: ${this.car.numberOfDoors}`);
 }
 
   ngOnInit() {
