@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarService } from '../../service/car.service';
 import { Car } from '../car';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-car-form',
@@ -13,6 +14,8 @@ export class CarFormComponent implements OnInit {
   
   private car:Car;
   public years;
+  newTaskForm: FormGroup;
+
   
 
 
@@ -20,9 +23,19 @@ export class CarFormComponent implements OnInit {
 
     this.car = new Car();
    
-    this.years = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
-      2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
-      2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018];
+    this.years = Array(27).fill(1).map((x, i) => 1991 + i);
+    
+    this.newTaskForm = new FormGroup({
+      speed: new FormControl(
+          this.car.maxSpeed,
+          this.validateMaxSpeed()
+      ),
+      doors: new FormControl(
+          this.car.numberOfDoors,
+          this.validateNumberOfDoors()
+      )
+  });
+
   }
 
  public submitCar(){
@@ -41,7 +54,26 @@ export class CarFormComponent implements OnInit {
   Number Of Doors: ${this.car.numberOfDoors}`);
 }
 
-  ngOnInit() {
+public validateMaxSpeed() {
+  return (c: FormControl) => {
+      return c.value > 20 && c.value < 300 ? null : {
+          validateMaxSpeed: {
+              valid: false
+          }
+      };
+  };
+}
+public validateNumberOfDoors() {
+return (c: FormControl) => {
+     return c.value > 2 && c.value < 5? null : {
+       validateNumberOfDoors: {
+         valid:false
+       }
+     };
+    };
+}
+
+ngOnInit() {
   }
 
 }
