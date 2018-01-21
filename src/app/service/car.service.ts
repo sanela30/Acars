@@ -47,10 +47,30 @@ export class CarService {
     }
 
     public addCar(car) {
-      this.cars.push(car);
-      this.idCount = this.idCount++;
+      //car.id=this.idCount
+     
+      this.cars.push(new Car({
+        id: this.idCount, 
+        ...car   
+    }));
+    this.idCount = this.idCount+1;
   }
 
+    public getById(id: number) {
+    let car;
+    this.cars.forEach((carID) => {
+        if (carID.id === id) {
+            car = carID;
+        }
+    });
+    return car;
+   }
+
+
+  public editCar(car) {
+    this.cars.splice(this.cars.indexOf(car), 1, car);
   }
+
+}
 
 

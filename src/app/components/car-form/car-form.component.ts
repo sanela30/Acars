@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { CarService } from '../../service/car.service';
 import { Car } from '../car';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-car-form',
@@ -19,13 +21,14 @@ export class CarFormComponent implements OnInit {
   
 
 
-  constructor(private __carService: CarService,private router: Router) { 
+  constructor(private __carService: CarService,private router:Router, private route: ActivatedRoute) { 
 
     this.car = new Car();
    
     this.years = Array(27).fill(1).map((x, i) => 1991 + i);
-    
-    this.newTaskForm = new FormGroup({
+
+    this.newTaskForm = new FormGroup
+    ({
       speed: new FormControl(
           this.car.maxSpeed,
           this.validateMaxSpeed()
@@ -34,17 +37,30 @@ export class CarFormComponent implements OnInit {
           this.car.numberOfDoors,
           this.validateNumberOfDoors()
       )
-  });
+    });
+
+
+this.route.params.subscribe(params =>{
+  if(params['id']){
+    this.car = this.__carService.getById(+params['id']);
+  }
+})
+
 
   }
 
- public submitCar(){
-    
-    this.__carService.addCar(this.car)
-    this.router.navigate(['/cars']);
-}
+  public submit (car) {
+    if(this.car.id){
+      this.__carService.editCar(this.car);
+    }else {
+    this.__carService.addCar(this.car);
+    }
 
-  public preview(){
+    this.router.navigate(['/cars']);   
+ }
+
+  public preview()
+  {
   alert(`Mark: ${this.car.mark},
   Model: ${this.car.model},
   Year: ${this.car.year},
@@ -52,7 +68,7 @@ export class CarFormComponent implements OnInit {
   Automatic: ${this.car.isAutomatic},
   Engine: ${this.car.engine},
   Number Of Doors: ${this.car.numberOfDoors}`);
-}
+ }
 
 public validateMaxSpeed() {
   return (c: FormControl) => {
